@@ -1,0 +1,26 @@
+---
+spring:
+  application:
+    name: kafka-poc
+  profiles:
+    active: local
+---
+server:
+  port: 9090
+
+---
+spring:
+  profiles: local
+  kafka:
+    template:
+      default-topic: liquidations
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      retries: 5
+    admin:
+      properties:
+        bootstrap.servers: localhost:9092
+        fail-fast: true
